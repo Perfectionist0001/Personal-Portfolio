@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Mr. Nikhil Singh's - Personal Portfolio </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color:rgb(0, 0, 33);
+            color:whitesmoke;
+            font-family: 'Poppins', sans-serif;
+        }
+        nav{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 80px;
+            background-color: rgb(18, 18, 62);
+        }
+        nav ul{
+            display:flex;
+            justify-content: center;
+        }
+        nav ul li{
+            list-style: none;
+            margin: 0 23px;
+            .left{
+                font-size: 1.5rem;
+            }
+        }
+        nav ul li a{
+            text-decoration: none;
+            color: whitesmoke;
+        }
+        nav ul li a:hover{
+            color: rgb(153, 153, 226);
+            font-size: 1.02rem;
+        }
+        main hr{
+            border:0;
+            background: #9c97f1;
+            height: 1.2px;
+            margin: 3px 84px;
+        }
+        .firstSection{
+            display: flex;
+            justify-content: space-around;
+            margin: 140px 0;
+
+        }
+        .firstSection > div{
+            width: 30%;
+        }
+        .leftSection{
+            font-size: 3rem;
+        }
+        .leftSection .buttons{
+            padding: 50px 0;
+        }
+        .leftSection .btn{
+            padding: 12px;
+            background: #1e2167;
+            color: whitesmoke;
+            border: 2px solid white;
+            border-radius: 6px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none; /* Removes underline */
+
+        }
+        .rightSection img{
+            width: 80%;
+            margin: 50px;
+        }
+        .purple{
+            color: rgb(170, 107, 228);
+        }
+        .text-gray{
+            color: grey;
+            margin: 50px 50px;
+        }
+        #element{
+            color: rgb(170, 107, 228);
+        }
+        .secondsection{
+            max-width: 80vw;
+            margin: auto;
+            height: 80vh;
+        }
+        .secondsection h1{
+            font-size: 1.9rem;
+        }
+        .secondsection .box{
+            background: whitesmoke;
+            width: 75vw;
+            height: 3px;
+            margin: 56px 0;
+            display: flex;
+        }
+        .secondsection .vertical{
+            height: 100px;
+            width: 1px;
+            background-color: whitesmoke;
+            margin: 0 5.25vw;
+        }
+        .image-top{
+            width: 50px;
+            position: relative;
+            top: -32px;
+            left: -23px;
+        }
+        .vertical-title{
+            position: relative;
+            top: 75px;
+            width: 154px;
+        }
+        .vertical-desc{
+            position: relative;
+            color:rgb(145, 146, 147);
+            top: 85px;
+            width: 150px;
+            font-size: 13px;
+        }
+        footer{
+            background-color: rgb(9, 9, 31);
+        }
+        .footer{
+            display: flex;
+            padding: 23px 122px;
+            justify-content: space-evenly;
+        }
+        .footer img{
+            margin: 25px 25px;
+        }
+        .footer ul{
+            list-style: none;
+        }
+        .footer > div{
+            width: 223px;
+        }
+        footer .footer-rights{
+            text-align: center;
+            color: gray;
+            padding: 12px 0;
+        }
+        @media screen and (max-width: 1400px) {
+            .box{
+               flex-direction: column; 
+            }
+            .secondsection .vertical{
+                height: unset;
+            }
+            .vertical-title,.vertical-desc{
+                left: 45px;
+
+            }
+            .secondsection .box{
+                width: 50vw;
+            }
+            nav{
+                flex-direction: column;
+            }
+            footer{
+                display: none;
+            }
+            .firstSection{
+                flex-direction: column-reverse;
+            }
+            .leftSection{
+                width: 100% !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+            }
+            .rightSection{
+                width: 721px !important;
+                display: flex;
+                justify-content: center;
+            }
+            .rightSection img{
+                width: 45vw;
+                margin-bottom: 73px;
+            }
+            .image-top{
+                top: 122PX;
+            }
+            .secondsection{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            body{
+                min-width: fit-content;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="left">
+                Nikhil Singh's Portfolio
+            </div>
+            <div class="right">
+                <ul>
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="certification.html">Certification</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact Me</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>    
+    <main>
+        <section class = "firstSection">
+            <div class = "leftSection">
+                <div>Hi, My name is <span class = "purple">NIKHIL</span>
+                <div>
+                    And I am a Passionate
+                </div>
+                <div>
+                    <span id="element"></span>
+                    </div>
+                    <div class="buttons">
+                        <a href="Portfolio Resume.pdf" download="Nikhil's Resume" class="btn">Download Resume</a>
+                    </div>                    
+                </div>
+            </div>
+            <div class = "rightSection">
+                <img src="Developer.png" alt="Illustration of a developer working on code">
+            </div>
+        </section>
+        <hr>
+        <section class="secondsection">
+            <span class="text-gray">  What I have learned so far</span>
+            <h1>
+                Learning Experience
+            </h1>
+            <div class="box">
+                <div class="vertical">
+                    <img class="image-top" src = "HTML.png" alt="">
+                    <div class = "vertical-title">
+                        HTML
+                    </div>
+                    <div class="vertical-desc">
+                        Learning HTML felt like laying the first stone in web development. I discovered how to structure content, creating a skeleton for websites. Each tag brought my pages to life, transforming simple ideas into clickable, organized designs. It’s the blueprint every website starts with.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="image-top" src = "CSS.png" alt="">
+                    <div class = "vertical-title">
+                        CSS
+                    </div>
+                    <div class="vertical-desc">
+                        CSS added flair and style to my web pages. From choosing colors and fonts to mastering layouts, I could express creativity through design. It was exciting to learn about positioning, responsiveness, and creating smooth, visually appealing user interfaces that made websites stand out.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="image-top" src = "JavaScript.png" alt="">
+                    <div class = "vertical-title">
+                        JavaScript
+                    </div>
+                    <div class="vertical-desc">
+                        JavaScript brought interaction to my websites. It turned static pages into dynamic ones with functions, loops, and event handling. By manipulating the DOM, I was able to create responsive features like forms, calculators, and games—making my websites not just visually attractive but engaging too.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="image-top" src = "Python.png" alt="">
+                    <div class = "vertical-title">
+                        Python
+                    </div>
+                    <div class="vertical-desc">
+                        Python’s fundamentals were simple yet powerful, from variables and loops to functions and data structures. As I explored OOP, classes helped organize code, while inheritance, encapsulation, polymorphism, and abstraction added flexibility and reusability. These concepts transformed my coding into clean, modular, and efficient solutions.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="image-top" src = "C++.png" alt="">
+                    <div class = "vertical-title">
+                        C / C++
+                    </div>
+                    <div class="vertical-desc">
+                        C and C++ were gateways to deeper programming concepts. C’s simplicity and memory management taught me efficiency, while C++ introduced object-oriented principles, enhancing my ability to build powerful, complex systems. These languages made me appreciate performance optimization and low-level coding techniques.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="image-top" src = "DBMS.png" alt="">
+                    <div class = "vertical-title">
+                        DBMS
+                    </div>
+                    <div class="vertical-desc">
+                        Learning DBMS was a journey into organizing vast amounts of data. I explored SQL to query databases and learned how to ensure data integrity through normalization. With indexing and transactions, I understood how to structure and manage data efficiently, making databases the backbone of many applications.
+                    </div>
+                </div>
+                <div class="vertical">
+                    <img class="image-top" src = "DSA.png" alt="">
+                    <div class = "vertical-title">
+                        DSA
+                    </div>
+                    <div class="vertical-desc">
+                        Data Structures and Algorithms (DSA) sharpened my problem-solving skills. From arrays to graphs and sorting to searching, I learned how to tackle complex challenges with efficiency. Understanding the time and space complexities of algorithms made me a more strategic thinker, optimizing solutions for real-world applications.
+                    </div>
+                </div>
+                <div class="vertical"></div>
+                <div class="vertical"></div>
+                <div class="vertical"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="footer - first">
+                <h1>Developers Portfolio</h1>
+                <img class="image-top" src = "Developer 0.png" alt="">
+            </div>
+            <div class="footer - second">
+        <div class="footer-rights">
+            CopyRights &#169; www.nikhilsingh'sportfolio.com  All rights are reserved !
+        </div>
+    </footer>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script>
+    var typed = new Typed('#element', {
+      strings: ['Web Developer', 'Video Editor','Cloud Engineer','Graphic Designer'],
+      typeSpeed: 100,
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
