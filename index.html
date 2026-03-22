@@ -5588,6 +5588,60 @@
       50%      { box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 50px rgba(168,85,247,.3), 0 0 80px rgba(34,211,238,.1); }
     }
 
+  
+    /*  PERFORMANCE OPTIMISATIONS  */
+
+    /* GPU-promote only the elements that actually animate */
+    .orb, .warp-line, #particles-canvas,
+    .hero-img-wrap, .chain-node, .back-to-top,
+    .scroll-progress-bar {
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Contain paint for heavy sections */
+    #home, #skills, #projects, #certifications {
+      contain: layout style;
+    }
+
+    /* Reduce backdrop-filter blur on mobile — most expensive property */
+    @media (max-width: 768px) {
+      nav,
+      .nav-menu,
+      .lightbox-overlay,
+      .sc-card,
+      .proj-card,
+      .chain-item,
+      .hx,
+      .msg-in,
+      .c-item,
+      .profile-card,
+      .toast,
+      .ab {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+    }
+
+    /* Disable non-essential infinite animations on mobile */
+    @media (max-width: 768px) {
+      .orb { animation: none !important; }
+      .warp-line { animation-duration: 6s !important; }
+      .footer-border-line { animation: none !important; }
+      .eyebrow-glow, .nav-glow-line { animation: none !important; }
+      .btn-sweep::after { animation: none !important; }
+      .input-glow-pulse { animation: none !important; }
+      .topbar-shine::after { animation: none !important; }
+    }
+
+    /* Respect user preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 
 
@@ -5611,7 +5665,7 @@
     <nav>
       <a href="#home" class="nav-logo">
         <div class="nav-avatar-wrap">
-          <img src="real_photo.jpg" alt="Nikhil Singh" class="nav-avatar">
+          <img src="real_photo.jpg" decoding="async" loading="lazy" alt="Nikhil Singh" class="nav-avatar">
           <div class="nav-avatar-ring"></div>
         </div>
         <span class="nav-logo-text">
@@ -5714,7 +5768,7 @@
       </div>
       <div class="hero-visual">
         <div class="hero-img-wrap">
-          <img src="real_photo.jpg" alt="Developer" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 0 40px rgba(34, 211, 238, 0.4); border: 4px solid rgba(255, 255, 255, 0.1);">
+          <img src="real_photo.jpg" decoding="async" loading="lazy" alt="Developer" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; box-shadow: 0 0 40px rgba(34, 211, 238, 0.4); border: 4px solid rgba(255, 255, 255, 0.1);">
           <div class="stat-badge sb-1">
             <div class="sb-icon" style="background:rgba(0,212,255,.15);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#00ff88" stroke="none"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
             <div>
@@ -5803,7 +5857,7 @@
             <div class="profile-inner">
               <div class="avatar-blob"
                 style="padding:4px; background:linear-gradient(135deg, rgba(168,85,247,0.6), rgba(34,211,238,0.6)); box-shadow:0 0 40px rgba(0,212,255,.4);">
-                <img src="real_photo.jpg" alt="Nikhil"
+                <img src="real_photo.jpg" decoding="async" loading="lazy" alt="Nikhil"
                   style="width:100%;height:100%;object-fit:cover;border-radius:50%;" loading="lazy">
               </div>
               <div class="profile-name">Nikhil Singh</div>
@@ -6052,7 +6106,7 @@
           // Handle soft skills with emoji icons vs technical skills with images
           const logoContent = sk.icon 
             ? `<span style="font-size: 2.5rem;">${sk.icon}</span>`
-            : `<img src="${sk.img}" alt="${sk.name}" ${sk.imgFilter ? `style="filter:${sk.imgFilter}"` : ''}>`;
+            : `<img src="${sk.img}" decoding="async" loading="lazy" alt="${sk.name}" ${sk.imgFilter ? `style="filter:${sk.imgFilter}"` : ''}>`;
 
           item.innerHTML = `
             <div class="chain-node" title="${sk.name}">
@@ -6405,7 +6459,7 @@
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
-                <div class="pc-ico" style="background:rgba(168,85,247,.12)"><img src="HTML.png" width="28" height="28"
+                <div class="pc-ico" style="background:rgba(168,85,247,.12)"><img src="HTML.png" decoding="async" loading="lazy" width="28" height="28"
                     style="object-fit:contain"></div>
                 <div class="pc-title-wrap">
                   <div class="pc-num">PROJECT 04</div>
@@ -6485,7 +6539,7 @@
         <div class="sc-right" id="sc-right">
           <div class="sc-card" id="sc-0">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00d4ff,#0ea5e9)"></div>
-            <div class="sc-img"><img src="C++ Certificate.png" alt="C++"></div>
+            <div class="sc-img"><img src="C++ Certificate.png" decoding="async" loading="lazy" alt="C++"></div>
             <div class="sc-info">
               <div class="sc-ico"><img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="24"
@@ -6499,9 +6553,9 @@
           </div>
           <div class="sc-card" id="sc-1">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00d4ff,#4f9cf9)"></div>
-            <div class="sc-img"><img src="DSA Certificate.png" alt="DSA"></div>
+            <div class="sc-img"><img src="DSA Certificate.png" decoding="async" loading="lazy" alt="DSA"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img src="DSA.png" width="24" height="24" style="object-fit:contain"></div>
+              <div class="sc-ico"><img src="DSA.png" decoding="async" loading="lazy" width="24" height="24" style="object-fit:contain"></div>
               <div class="sc-txt">
                 <div class="sc-name">Data Structures &amp; Algorithms</div>
                 <div class="sc-yr">Issued 2025</div>
@@ -6511,7 +6565,7 @@
           </div>
           <div class="sc-card" id="sc-2">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ffa500,#f97316)"></div>
-            <div class="sc-img"><img src="C Certificate.png" alt="C"></div>
+            <div class="sc-img"><img src="C Certificate.png" decoding="async" loading="lazy" alt="C"></div>
             <div class="sc-info">
               <div class="sc-ico"><img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="24"
@@ -6525,7 +6579,7 @@
           </div>
           <div class="sc-card" id="sc-3">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00ff88,#00d4ff)"></div>
-            <div class="sc-img"><img src="Python Certificate.png" alt="Python"></div>
+            <div class="sc-img"><img src="Python Certificate.png" decoding="async" loading="lazy" alt="Python"></div>
             <div class="sc-info">
               <div class="sc-ico"><img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="24"
@@ -6539,9 +6593,9 @@
           </div>
           <div class="sc-card" id="sc-4">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#4f9cf9,#00d4ff)"></div>
-            <div class="sc-img"><img src="Web Dev Certificate.png" alt="Web Dev"></div>
+            <div class="sc-img"><img src="Web Dev Certificate.png" decoding="async" loading="lazy" alt="Web Dev"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img src="HTML.png" width="24" height="24" style="object-fit:contain"></div>
+              <div class="sc-ico"><img src="HTML.png" decoding="async" loading="lazy" width="24" height="24" style="object-fit:contain"></div>
               <div class="sc-txt">
                 <div class="sc-name">Web Development</div>
                 <div class="sc-yr">Issued 2023</div>
@@ -6551,7 +6605,7 @@
           </div>
           <div class="sc-card" id="sc-5">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00d4ff,#00ff88)"></div>
-            <div class="sc-img"><img src="Hackathon Apna College Certificate.png" alt="Hackathon AC"></div>
+            <div class="sc-img"><img src="Hackathon Apna College Certificate.png" decoding="async" loading="lazy" alt="Hackathon AC"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00d4ff"
                   stroke-width="2">
@@ -6567,7 +6621,7 @@
           </div>
           <div class="sc-card" id="sc-6">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ffa500,#00d4ff)"></div>
-            <div class="sc-img"><img src="Hackathon Coding Blocks Certificate.png" alt="Hackathon CB"></div>
+            <div class="sc-img"><img src="Hackathon Coding Blocks Certificate.png" decoding="async" loading="lazy" alt="Hackathon CB"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffa500"
                   stroke-width="2">
@@ -6583,7 +6637,7 @@
           </div>
           <div class="sc-card" id="sc-7">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ffa500,#f97316)"></div>
-            <div class="sc-img"><img src="Human Resource Management Certificate.png" alt="HR"></div>
+            <div class="sc-img"><img src="Human Resource Management Certificate.png" decoding="async" loading="lazy" alt="HR"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffa500"
                   stroke-width="2">
@@ -6601,7 +6655,7 @@
           </div>
           <div class="sc-card" id="sc-8">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00d4ff,#00ff88)"></div>
-            <div class="sc-img"><img src="People Management Certification.png" alt="People Mgmt"></div>
+            <div class="sc-img"><img src="People Management Certification.png" decoding="async" loading="lazy" alt="People Mgmt"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ff88"
                   stroke-width="2">
@@ -6617,7 +6671,7 @@
           </div>
           <div class="sc-card" id="sc-9">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ff9900,#ffa500)"></div>
-            <div class="sc-img"><img src="AWS Cloud architect training.png" alt="AWS Cloud"></div>
+            <div class="sc-img"><img src="AWS Cloud architect training.png" decoding="async" loading="lazy" alt="AWS Cloud"></div>
             <div class="sc-info">
               <div class="sc-ico"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="24" height="24"></div>
               <div class="sc-txt">
@@ -6629,7 +6683,7 @@
           </div>
           <div class="sc-card" id="sc-10">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#f0db4f,#fbbf24)"></div>
-            <div class="sc-img"><img src="JAVA Certificate.jpg" alt="Java"></div>
+            <div class="sc-img"><img src="JAVA Certificate.jpg" decoding="async" loading="lazy" alt="Java"></div>
             <div class="sc-info">
               <div class="sc-ico"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="24" height="24"></div>
               <div class="sc-txt">
@@ -6641,7 +6695,7 @@
           </div>
           <div class="sc-card" id="sc-11">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00d4ff,#4f9cf9)"></div>
-            <div class="sc-img"><img src="CSE Pathshala Summer Internship .png" alt="CSE Pathshala"></div>
+            <div class="sc-img"><img src="CSE Pathshala Summer Internship .png" decoding="async" loading="lazy" alt="CSE Pathshala"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00d4ff" stroke-width="2">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
@@ -6655,7 +6709,7 @@
           </div>
           <div class="sc-card" id="sc-12">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#326ce5,#60a5fa)"></div>
-            <div class="sc-img"><img src="OCI25DCFAV2.jpg" alt="Oracle Cloud"></div>
+            <div class="sc-img"><img src="OCI25DCFAV2.jpg" decoding="async" loading="lazy" alt="Oracle Cloud"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#326ce5" stroke-width="2">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -6669,7 +6723,7 @@
           </div>
           <div class="sc-card" id="sc-13">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#a855f7,#c084fc)"></div>
-            <div class="sc-img"><img src="certificate_NIKHIL_SINGH.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="certificate_NIKHIL_SINGH.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -6683,7 +6737,7 @@
           </div>
           <div class="sc-card" id="sc-14">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#22d3ee,#00d4ff)"></div>
-            <div class="sc-img"><img src="NIKHIL SINGH_certificate.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="NIKHIL SINGH_certificate.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
@@ -6697,7 +6751,7 @@
           </div>
           <div class="sc-card" id="sc-15">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#f472b6,#ec4899)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-13 120146.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-13 120146.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="2">
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -6711,7 +6765,7 @@
           </div>
           <div class="sc-card" id="sc-16">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-14 162234.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-14 162234.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -6725,7 +6779,7 @@
           </div>
           <div class="sc-card" id="sc-17">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#34d399,#10b981)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051120.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051120.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
                   <polyline points="20 6 9 17 4 12"/>
@@ -6739,7 +6793,7 @@
           </div>
           <div class="sc-card" id="sc-18">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#60a5fa,#3b82f6)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051145.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051145.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
@@ -6753,7 +6807,7 @@
           </div>
           <div class="sc-card" id="sc-19">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#a855f7,#9333ea)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051207.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051207.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -6767,7 +6821,7 @@
           </div>
           <div class="sc-card" id="sc-20">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ef4444,#dc2626)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051221.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051221.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
@@ -6781,7 +6835,7 @@
           </div>
           <div class="sc-card" id="sc-21">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#22d3ee,#06b6d4)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051235.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051235.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -6795,7 +6849,7 @@
           </div>
           <div class="sc-card" id="sc-22">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#fb923c,#f97316)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051252.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051252.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2">
                   <polyline points="20 6 9 17 4 12"/>
@@ -6809,7 +6863,7 @@
           </div>
           <div class="sc-card" id="sc-23">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#34d399,#059669)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051307.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051307.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -6823,7 +6877,7 @@
           </div>
           <div class="sc-card" id="sc-24">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#f472b6,#db2777)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051321.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051321.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="2">
                   <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
@@ -6837,7 +6891,7 @@
           </div>
           <div class="sc-card" id="sc-25">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#fbbf24,#d97706)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 051332.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 051332.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
@@ -6851,7 +6905,7 @@
           </div>
           <div class="sc-card" id="sc-26">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#60a5fa,#2563eb)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 052204.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 052204.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
                   <polyline points="20 6 9 17 4 12"/>
@@ -6865,7 +6919,7 @@
           </div>
           <div class="sc-card" id="sc-27">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#a855f7,#7c3aed)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 052225.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 052225.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a855f7" stroke-width="2">
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -6879,7 +6933,7 @@
           </div>
           <div class="sc-card" id="sc-28">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#22d3ee,#0891b2)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 052744.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 052744.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -6893,7 +6947,7 @@
           </div>
           <div class="sc-card" id="sc-29">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ef4444,#b91c1c)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 052757.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 052757.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
@@ -6907,7 +6961,7 @@
           </div>
           <div class="sc-card" id="sc-30">
             <div class="sc-topbar" style="background:linear-gradient(90deg,#34d399,#047857)"></div>
-            <div class="sc-img"><img src="Screenshot 2026-03-16 052807.png" alt="Certificate"></div>
+            <div class="sc-img"><img src="Screenshot 2026-03-16 052807.png" decoding="async" loading="lazy" alt="Certificate"></div>
             <div class="sc-info">
               <div class="sc-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2">
                   <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
@@ -7200,7 +7254,7 @@
     // Improved Scroll-Spy: Track section prominence
     const navObsOptions = {
       root: null,
-      threshold: Array.from({ length: 11 }, (_, i) => i * 0.1), // [0, 0.1, ..., 1.0]
+      threshold: [0, 0.25, 0.5, 0.75, 1.0],
     };
 
     const sectionVisibility = new Map();
@@ -7475,7 +7529,7 @@
       /* Node colours matching cloud theme */
       const NODE_COLS = ['#00d4ff', '#4f9cf9', '#00f5ff', '#7eb8f7', '#00ff88', '#0ea5e9'];
       const EDGE_COL = 'rgba(0,212,255,';
-      const NODE_COUNT = 60;
+      const NODE_COUNT = 25;
       const CONNECT_DIST = 160; /* max px to draw an edge */
       const SPEED = 0.3;
 
@@ -7579,7 +7633,7 @@
     (function () {
       const wrap = document.getElementById('warp-lines');
       if (!wrap) return;
-      const NUM_LINES = 18;
+      const NUM_LINES = 8;
       for (let i = 0; i < NUM_LINES; i++) {
         const line = document.createElement('div');
         line.className = 'warp-line';
@@ -8449,6 +8503,20 @@
       window.location.href = `mailto:tech.nikhilsingh@gmail.com?subject=${s}&body=${b}`;
       if (typeof showToast === 'function') showToast('Opening your email client...', 'success');
     }
+
+    // ── Mobile performance: kill decorative elements on small screens ──
+    (function() {
+      if (window.innerWidth > 768) return;
+      // Remove orbs (pure decoration, heavy paint)
+      document.querySelectorAll('.orb').forEach(el => el.remove());
+      // Remove dot-grid overlay
+      const dg = document.querySelector('.dot-grid');
+      if (dg) dg.remove();
+      // Stop warp lines from being created (handled by CSS animation-duration)
+      // Reduce canvas opacity so it's lighter
+      const cv = document.getElementById('particles-canvas');
+      if (cv) cv.style.opacity = '0.3';
+    })();
   </script>
 </body>
 </html>
