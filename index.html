@@ -82,17 +82,9 @@
 
 
     @keyframes rgb-mesh {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     * {
@@ -106,15 +98,14 @@
     }
 
     body {
-      background: var(--bg-primary);
+      background-color: #030014;
       background-image:
-        radial-gradient(ellipse at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 80%, rgba(34, 211, 238, 0.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.08) 0%, transparent 60%),
-        radial-gradient(circle at 20% 60%, rgba(251, 191, 36, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 90% 30%, rgba(52, 211, 153, 0.08) 0%, transparent 40%);
+        radial-gradient(ellipse 80% 60% at 10% 15%, rgba(139, 92, 246, 0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 55% at 85% 80%, rgba(34, 211, 238, 0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(244, 114, 182, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(168, 85, 247, 0.10) 0%, transparent 45%),
+        radial-gradient(ellipse 40% 35% at 90% 25%, rgba(52, 211, 153, 0.07) 0%, transparent 40%);
       background-attachment: fixed;
-      animation: rgb-mesh 20s ease-in-out infinite alternate;
       color: var(--text-primary);
       font-family: var(--font-sans);
       width: 100%;
@@ -153,6 +144,15 @@
 
     [data-theme="light"] body::after {
       opacity: 0.02;
+    }
+
+    [data-theme="light"] body {
+      background-color: #f0f4f8;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 10% 15%, rgba(124, 58, 237, 0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 55% at 85% 80%, rgba(8, 145, 178, 0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(219, 39, 119, 0.05) 0%, transparent 60%);
+      background-attachment: fixed;
     }
 
 
@@ -8343,4 +8343,7 @@
   </script>
 </body>
 </html>
+
+
+
 
