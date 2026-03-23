@@ -590,9 +590,11 @@
     }
 
     .toggle-icon {
-      font-size: 12px;
+      font-size: 14px;
+      line-height: 1;
       position: absolute;
       transition: all 0.4s ease;
+      user-select: none;
     }
 
     .moon { opacity: 1; transform: scale(1) rotate(0deg); }
@@ -5697,7 +5699,7 @@
           <div class="nav-avatar-ring"></div>
         </div>
         <span class="nav-logo-text">
-          <span style="opacity:0.5;font-size:0.85em">&lt;</span>NIKHIL<span style="color:var(--accent-cyan)">.DEV</span><span style="opacity:0.5;font-size:0.85em">/&gt;</span>
+          <span style="color:rgba(168,85,247,0.7);font-size:0.85em">&lt;</span>NIKHIL<span style="color:var(--accent-cyan)">.DEV</span><span style="color:rgba(168,85,247,0.7);font-size:0.85em">/&gt;</span>
         </span>
       </a>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -5715,8 +5717,8 @@
           <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Day/Night">
             <span class="toggle-track">
               <span class="toggle-thumb">
-                <span class="toggle-icon sun">??</span>
-                <span class="toggle-icon moon">??</span>
+                <span class="toggle-icon sun">&#9728;&#65039;</span>
+                <span class="toggle-icon moon">&#9790;&#65039;</span>
               </span>
             </span>
           </button>
@@ -8613,3 +8615,7 @@
   </script>
 </body>
 </html>
+
+
+
+
