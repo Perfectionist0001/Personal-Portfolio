@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1212,7 +1212,7 @@
       flex: 0 0 45%;
       position: relative;
       overflow: hidden;
-      background: rgba(0, 0, 0, 0.3);
+      background: #0a0d1e;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1223,30 +1223,80 @@
       border-radius: 0 calc(var(--radius-xl) - 3px) calc(var(--radius-xl) - 3px) 0;
     }
 
+    /* Project image fills the visual panel */
+    .pc-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), filter 0.4s ease;
+      filter: brightness(0.75) saturate(1.1);
+    }
+
+    .proj-card:hover .pc-visual img {
+      transform: scale(1.07);
+      filter: brightness(0.9) saturate(1.3);
+    }
+
+    /* Gradient overlay on image */
+    .pc-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(5,8,20,0.55) 0%, transparent 60%),
+                  linear-gradient(to top, rgba(5,8,20,0.7) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .proj-card:nth-child(even) .pc-visual::after {
+      background: linear-gradient(to left, rgba(5,8,20,0.55) 0%, transparent 60%),
+                  linear-gradient(to top, rgba(5,8,20,0.7) 0%, transparent 50%);
+    }
+
+    /* Coloured tint overlay from --pg variable */
     .pc-visual::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(34, 211, 238, 0.1));
-      opacity: 0;
+      background: var(--pg, linear-gradient(135deg,#a855f7,#22d3ee));
+      opacity: 0.12;
       transition: opacity 0.5s ease;
+      z-index: 2;
+      pointer-events: none;
     }
 
     .proj-card:hover .pc-visual::before {
-      opacity: 1;
+      opacity: 0.22;
     }
 
-    .pc-visual-icon {
-      font-size: 8rem;
-      opacity: 0.15;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      filter: drop-shadow(0 0 30px currentColor);
+    /* Tech badge overlay on image */
+    .pc-visual-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .proj-card:hover .pc-visual-icon {
-      transform: scale(1.2) rotate(10deg);
-      opacity: 0.25;
+    .pc-visual-badge span {
+      font-size: 0.62rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      backdrop-filter: blur(8px);
     }
+
+    .pc-visual-icon { display: none; }
 
     .pc-content {
       flex: 1;
@@ -1507,7 +1557,7 @@
     }
 
     .pc-arrow::after {
-      content: '?';
+      content: '→';
       display: inline-block;
       transition: transform 0.3s ease;
       font-size: 1.1rem;
@@ -6394,7 +6444,8 @@
         <div class="proj-card reveal" data-tilt data-url="https://perfectionist0001.github.io/AI-Image-Processing-Web-Application/" style="--pg:linear-gradient(135deg,#f59e0b,#ef4444)">
           <div class="pc-in">
             <div class="pc-visual">
-              <div class="pc-visual-icon" style="color:#f59e0b">&#x2601;&#xFE0F;</div>
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="AWS Cloud Architecture" loading="lazy" decoding="async">
+              <div class="pc-visual-badge"><span>AWS</span><span>EC2</span><span>S3</span></div>
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
@@ -6425,7 +6476,8 @@
         <div class="proj-card reveal" data-tilt data-url="https://perfectionist0001.github.io/CPU-Scheduling-Algorithms-/" style="--pg:linear-gradient(135deg,#a855f7,#22d3ee)">
           <div class="pc-in">
             <div class="pc-visual">
-              <div class="pc-visual-icon" style="color:#22d3ee">&#x1F310;</div>
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="CPU Scheduling Visualizer" loading="lazy" decoding="async">
+              <div class="pc-visual-badge"><span>C++</span><span>JavaScript</span><span>Algorithms</span></div>
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
@@ -6455,7 +6507,8 @@
         <div class="proj-card reveal" data-tilt data-url="https://perfectionist0001.github.io/HOME-INVENTORY-TRACKER-CHATBOT/" style="--pg:linear-gradient(135deg,#34d399,#60a5fa)">
           <div class="pc-in">
             <div class="pc-visual">
-              <div class="pc-visual-icon" style="color:#34d399">&#x1F310;</div>
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Home Inventory Chatbot" loading="lazy" decoding="async">
+              <div class="pc-visual-badge"><span>Python</span><span>Flask</span><span>MySQL</span></div>
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
@@ -6485,7 +6538,8 @@
         <div class="proj-card reveal" data-tilt data-url="#home" style="--pg:linear-gradient(135deg,#a855f7,#f472b6)">
           <div class="pc-in">
             <div class="pc-visual">
-              <div class="pc-visual-icon" style="color:#f472b6">&#x1F310;</div>
+              <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&q=80" alt="Portfolio Website" loading="lazy" decoding="async">
+              <div class="pc-visual-badge"><span>HTML5</span><span>CSS3</span><span>JS</span></div>
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
@@ -6514,7 +6568,8 @@
         <div class="proj-card reveal" data-tilt data-url="https://github.com/Perfectionist0001/UltraSonic-Radar-System.git" style="--pg:linear-gradient(135deg,#22d3ee,#60a5fa)">
           <div class="pc-in">
             <div class="pc-visual">
-              <div class="pc-visual-icon" style="color:#22d3ee">&#x1F310;</div>
+              <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80" alt="Ultrasonic Radar System" loading="lazy" decoding="async">
+              <div class="pc-visual-badge"><span>Arduino</span><span>C++</span><span>IoT</span></div>
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
@@ -8615,7 +8670,4 @@
   </script>
 </body>
 </html>
-
-
-
 
