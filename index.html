@@ -5383,13 +5383,8 @@
         0 0 100px rgba(243,108,33,0.1) !important;
     }
 
-    /* ── Eyebrow badge — animated border ── */
+    /* ── Eyebrow badge — no animation ── */
     .hero-eyebrow {
-      animation: eyebrow-glow 3s ease-in-out infinite;
-    }
-    @keyframes eyebrow-glow {
-      0%,100% { box-shadow: 0 0 20px rgba(168,85,247,0.1); }
-      50%      { box-shadow: 0 0 30px rgba(168,85,247,0.25), 0 0 60px rgba(34,211,238,0.1); }
     }
 
     /* ── Stat badges — animated glow ── */
@@ -5733,7 +5728,7 @@
         <div class="hero-eyebrow">
           <div class="eyebrow-dot"></div> <span id="live-greeting">Hello</span> &nbsp;&middot;&nbsp; <span
             id="live-clock">--:--</span> &nbsp;&middot;&nbsp; <span id="live-weather" style="color:#f472b6">⛅ --°C</span>
-          &nbsp;&middot;&nbsp; <span style="color:#34d399;display:inline-flex;align-items:center;gap:5px"><span style="width:6px;height:6px;background:#34d399;border-radius:50%;display:inline-block;box-shadow:0 0 6px #34d399;animation:pulse-glow 1.5s ease infinite"></span>Open to Work</span>
+          &nbsp;&middot;&nbsp; <span style="color:#34d399;display:inline-flex;align-items:center;gap:5px"><span style="width:6px;height:6px;background:#34d399;border-radius:50%;display:inline-block"></span>Open to Work</span>
         </div>
         <h1 class="hero-name" data-text="Hi, I'm Nikhil Singh">Hi, I'm<br><span class="shimmer-text">Nikhil Singh</span>
         </h1>
