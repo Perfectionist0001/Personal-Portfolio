@@ -7252,20 +7252,31 @@
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Scroll-spy: highlight nav link whose section top is closest above viewport midpoint
+    // Scroll-spy using getBoundingClientRect for accurate real-time position
+    // Works correctly even with the tall certifications scroll section
     function updateActiveNav() {
-      const scrollY = window.scrollY;
-      const mid = scrollY + window.innerHeight * 0.35; // 35% from top = trigger point
-
+      const triggerY = window.innerHeight * 0.25; // top 25% of viewport = trigger line
       let activeId = null;
-      sections.forEach(sec => {
-        const top = sec.offsetTop;
-        if (top <= mid) activeId = sec.id;
+      let closestDist = Infinity;
+
+      sections.forEach(function(sec) {
+        const rect = sec.getBoundingClientRect();
+        // Distance from section top to trigger line (negative = section top is above trigger)
+        const dist = Math.abs(rect.top - triggerY);
+
+        // Section is considered "active" if its top has passed the trigger line
+        // and it's the closest one to it
+        if (rect.top <= triggerY && dist < closestDist) {
+          closestDist = dist;
+          activeId = sec.id;
+        }
       });
 
-      navLinks.forEach(l => {
-        const href = l.getAttribute('href');
-        l.classList.toggle('active', href === '#' + activeId);
+      // Fallback: if nothing passed trigger yet, use the first section
+      if (!activeId) activeId = sections[0] ? sections[0].id : null;
+
+      navLinks.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + activeId);
       });
     }
 
@@ -7277,6 +7288,11 @@
         updateActiveNav();
         _spyRaf = false;
       });
+    }, { passive: true });
+
+    // Also update on resize (layout shifts)
+    window.addEventListener('resize', function() {
+      requestAnimationFrame(updateActiveNav);
     }, { passive: true });
 
     updateActiveNav(); // run once on load
@@ -7826,12 +7842,32 @@
         btn.classList.toggle('open', open);
         btn.setAttribute('aria-expanded', open);
       });
-      // Close on nav link click
+      // Close on nav link click + immediately set active state
       menu.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
           menu.classList.remove('open');
           btn.classList.remove('open');
           btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+
+    // Nav link click: instantly mark active + smooth scroll
+    (function() {
+      document.querySelectorAll('.nav-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          const href = link.getAttribute('href');
+          if (!href || !href.startsWith('#')) return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (!target) return;
+
+          // Immediately highlight clicked link
+          document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+          link.classList.add('active');
+
+          // Smooth scroll to section
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
     })();
