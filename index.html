@@ -7251,41 +7251,35 @@
 
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    // Improved Scroll-Spy: Track section prominence
-    const navObsOptions = {
-      root: null,
-      threshold: [0, 0.25, 0.5, 0.75, 1.0],
-    };
 
-    const sectionVisibility = new Map();
+    // Scroll-spy: highlight nav link whose section top is closest above viewport midpoint
+    function updateActiveNav() {
+      const scrollY = window.scrollY;
+      const mid = scrollY + window.innerHeight * 0.35; // 35% from top = trigger point
 
-    const navObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        sectionVisibility.set(e.target.id, { ratio: e.intersectionRatio, height: e.target.offsetHeight });
-      });
-
-      let maxPixels = -1;
       let activeId = null;
-
-      sectionVisibility.forEach((data, id) => {
-        const visiblePixels = data.ratio * data.height;
-        if (visiblePixels > maxPixels) {
-          maxPixels = visiblePixels;
-          activeId = id;
-        }
+      sections.forEach(sec => {
+        const top = sec.offsetTop;
+        if (top <= mid) activeId = sec.id;
       });
 
-      if (activeId && maxPixels > 50) {
-        navLinks.forEach(l => {
-          l.classList.remove('active');
-          if (l.getAttribute('href') === `#${activeId}`) {
-            l.classList.add('active');
-          }
-        });
-      }
-    }, navObsOptions);
+      navLinks.forEach(l => {
+        const href = l.getAttribute('href');
+        l.classList.toggle('active', href === '#' + activeId);
+      });
+    }
 
-    sections.forEach(s => navObs.observe(s));
+    let _spyRaf = false;
+    window.addEventListener('scroll', function() {
+      if (_spyRaf) return;
+      _spyRaf = true;
+      requestAnimationFrame(function() {
+        updateActiveNav();
+        _spyRaf = false;
+      });
+    }, { passive: true });
+
+    updateActiveNav(); // run once on load
     
     // === GLOBAL ERROR HANDLING ===
     window.addEventListener('error', function(e) {
