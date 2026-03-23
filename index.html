@@ -1884,12 +1884,13 @@
       }
 
       .sc-right {
-        position: relative;
+        position: relative !important;
         top: 0;
         height: auto;
         flex: none;
-        flex-direction: column;
-        gap: 16px;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px;
         overflow: visible;
         padding: 0 24px 60px;
         align-items: center;
@@ -1902,10 +1903,14 @@
         height: 360px;
         transform: none !important;
         opacity: 1 !important;
+        pointer-events: auto !important;
+        display: block !important;
       }
 
       .sc-card.sc-away {
-        display: none;
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
       }
 
       #certifications .sec-head {
@@ -7317,7 +7322,20 @@
         console.error('Cert section not found!', {scArea, cards: scCards.length});
         return;
       }
-      
+
+      // Mobile: skip scroll-jacking entirely, show as plain vertical list
+      function isMobile() { return window.innerWidth <= 900; }
+      function resetMobileCards() {
+        scCards.forEach(function(c) {
+          c.style.transform = '';
+          c.style.opacity = '';
+          c.style.zIndex = '';
+          c.style.pointerEvents = '';
+        });
+        scArea.style.minHeight = '';
+      }
+      if (isMobile()) { resetMobileCards(); return; }
+
       const SC_TOTAL = scCards.length;
       const SC_STEP_RATIO = 0.55;
       scArea.style.minHeight = ((SC_TOTAL - 1) * SC_STEP_RATIO * 100 + 100) + 'vh';
@@ -7441,6 +7459,11 @@
       
       scScroll();
       console.log(' Certification scroll initialized:', SC_TOTAL, 'cards');
+
+      // Re-evaluate on resize / orientation change
+      window.addEventListener('resize', function() {
+        if (isMobile()) { resetMobileCards(); }
+      }, { passive: true });
     })();
     function hideLoader() { const l = document.getElementById('loader'); if (l) l.classList.add('hide'); }
     window.addEventListener('load', () => setTimeout(hideLoader, 1800));
