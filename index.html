@@ -7474,51 +7474,86 @@
       document.addEventListener('mouseleave', () => { halo.style.opacity = '0'; dot.style.opacity = '0'; });
       document.addEventListener('mouseenter', () => { halo.style.opacity = ''; dot.style.opacity = ''; });
     })();
-    /* –”€–”€ Live clock + greeting + weather –”€–”€ */
+    /*  Live clock + greeting + weather  */
     (function () {
-      const cl = document.getElementById('live-clock'), gr = document.getElementById('live-greeting'), wt = document.getElementById('live-weather');
+      const cl = document.getElementById('live-clock');
+      const gr = document.getElementById('live-greeting');
+      const wt = document.getElementById('live-weather');
       if (!cl || !gr) return;
-      function tick() {
-        const n = new Date(), h = n.getHours(), m = String(n.getMinutes()).padStart(2, '0'), s = String(n.getSeconds()).padStart(2, '0');
-        cl.textContent = `${String(h).padStart(2, '0')}:${m}:${s}`;
-        gr.textContent = h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : h < 21 ? 'Good Evening' : 'Good Night';
-      }
-      tick(); setInterval(tick, 1000);
 
-      if (wt) {
-        // Attempt multiple robust IP services to reliably get real-time local location
-        fetch('https://ipinfo.io/json')
-          .then(r => r.json())
-          .then(d => {
-            if (!d.loc) throw new Error();
-            const [lat, lon] = d.loc.split(',');
-            return { lat, lon, city: d.city };
-          })
-          .catch(() => {
-            // Fallback secondary provider if primary is blocked by privacy extensions
-            return fetch('https://freeipapi.com/api/json')
-              .then(r => r.json())
-              .then(d => {
-                if (!d.latitude) throw new Error();
-                return { lat: d.latitude, lon: d.longitude, city: d.cityName };
-              });
-          })
-          .then(loc => {
-            return fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current_weather=true`)
-              .then(r => r.json())
-              .then(w => {
-                const c = w.current_weather.weathercode, temp = Math.round(w.current_weather.temperature);
-                let ic = '⛅';
-                if (c === 0) ic = '☀️'; else if (c <= 3) ic = '⛅'; else if (c <= 48) ic = '🌫️'; else if (c <= 67) ic = '🌧️'; else if (c <= 77) ic = '❄️'; else ic = '⚡';
-                wt.innerHTML = `${ic} ${temp}°C, ${loc.city}`;
-                wt.style.display = 'inline';
-              });
-          })
-          .catch(() => {
-            // Gently hide widget if all network requests are completely blocked
-            wt.style.display = 'none';
+      // Clock — visitor's local time
+      function tick() {
+        const n = new Date();
+        const h = n.getHours(), m = String(n.getMinutes()).padStart(2,'0'), s = String(n.getSeconds()).padStart(2,'0');
+        cl.textContent = String(h).padStart(2,'0') + ':' + m + ':' + s;
+        gr.textContent = h < 5 ? 'Good Night' : h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : h < 21 ? 'Good Evening' : 'Good Night';
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      if (!wt) return;
+
+      function weatherIcon(code) {
+        if (code === 0) return '\u2600\uFE0F';
+        if (code <= 2) return '\uD83C\uDF24\uFE0F';
+        if (code <= 3) return '\u2601\uFE0F';
+        if (code <= 48) return '\uD83C\uDF2B\uFE0F';
+        if (code <= 67) return '\uD83C\uDF27\uFE0F';
+        if (code <= 77) return '\u2744\uFE0F';
+        return '\u26C8\uFE0F';
+      }
+
+      function fetchWeather(lat, lon, city) {
+        return fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current_weather=true&timezone=auto')
+          .then(function(r) { return r.json(); })
+          .then(function(w) {
+            var cw = w.current_weather;
+            var temp = Math.round(cw.temperature);
+            var icon = weatherIcon(cw.weathercode);
+            wt.innerHTML = icon + ' ' + temp + '\u00B0C &nbsp;&middot;&nbsp; ' + city;
+            wt.style.color = '#f472b6';
           });
       }
+
+      function tryIpApi() {
+        return fetch('https://ip-api.com/json/?fields=lat,lon,city,status')
+          .then(function(r) { return r.json(); })
+          .then(function(d) {
+            if (d.status !== 'success') throw new Error();
+            return fetchWeather(d.lat, d.lon, d.city);
+          });
+      }
+
+      function tryIpapiCo() {
+        return fetch('https://ipapi.co/json/')
+          .then(function(r) { return r.json(); })
+          .then(function(d) {
+            if (!d.latitude) throw new Error();
+            return fetchWeather(d.latitude, d.longitude, d.city);
+          });
+      }
+
+      function tryBrowserGeo() {
+        return new Promise(function(resolve, reject) {
+          if (!navigator.geolocation) return reject();
+          navigator.geolocation.getCurrentPosition(function(pos) {
+            var lat = pos.coords.latitude, lon = pos.coords.longitude;
+            fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lon + '&format=json')
+              .then(function(r) { return r.json(); })
+              .then(function(d) {
+                var city = (d.address && (d.address.city || d.address.town || d.address.village)) || 'Your City';
+                return fetchWeather(lat, lon, city);
+              }).then(resolve).catch(reject);
+          }, reject, { timeout: 5000 });
+        });
+      }
+
+      tryIpApi()
+        .catch(function() { return tryIpapiCo(); })
+        .catch(function() { return tryBrowserGeo(); })
+        .catch(function() {
+          fetchWeather(25.3176, 82.9739, 'India').catch(function() { wt.style.display = 'none'; });
+        });
     })();
     /* –”€–”€ –˜ Cloud Network Topology Canvas –”€–”€ */
     (function () {
