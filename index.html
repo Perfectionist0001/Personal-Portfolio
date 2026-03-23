@@ -17,6 +17,9 @@
   <meta name="twitter:title" content="Nikhil Singh &mdash; Portfolio">
   <meta name="twitter:description" content="Web Developer, Cloud Engineer & Creative Technologist from India.">
   <meta name="twitter:image" content="real_photo.jpg">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="//unpkg.com">
+  <link rel="preload" as="image" href="real_photo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
@@ -389,6 +392,7 @@
       opacity: 0.5;
       z-index: 1;
       animation: spin 4s linear infinite;
+      animation-play-state: paused;
       filter: blur(8px);
       will-change: transform;
     }
@@ -407,6 +411,7 @@
       transition: opacity 0.4s ease;
       z-index: 0;
       animation: pulse-glow 2s ease-in-out infinite;
+      animation-play-state: paused;
     }
 
     @keyframes pulse-glow {
@@ -416,12 +421,14 @@
 
     .nav-logo:hover .nav-avatar-wrap::before {
       opacity: 1;
+      animation-play-state: running;
     }
 
     .nav-logo:hover .nav-avatar-ring {
       opacity: 1;
       filter: blur(8px);
       animation: spin 2s linear infinite;
+      animation-play-state: running;
     }
 
     .nav-logo:hover .nav-avatar {
@@ -1455,7 +1462,7 @@
     }
 
     .pc-feature::before {
-      content: '?';
+      content: '\2713';
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2448,7 +2455,7 @@
     }
 
     .section-eyebrow::before {
-      content: '?';
+      content: '\25C6';
       margin-right: 2px;
     }
 
@@ -3655,7 +3662,7 @@
       transform: translateY(-2px);
     }
     .chain-detail-chip::before {
-      content: '?';
+      content: '\25B8';
       color: var(--hx-color);
       font-size: 0.6rem;
     }
@@ -5837,12 +5844,12 @@
         <!-- Tech stack chips -->
         <div class="hero-chips">
           <div class="hero-chips-row">
-            <span class="tag tag-cyan"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"> React</span>
-            <span class="tag tag-amber"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"> AWS</span>
-            <span class="tag tag-green"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"> Python</span>
-            <span class="tag tag-blue"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"> Docker</span>
-            <span class="tag tag-pink"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg"> Kubernetes</span>
-            <span class="tag tag-orange"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg"> CI/CD</span>
+            <span class="tag tag-cyan"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"> React</span>
+            <span class="tag tag-amber"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"> AWS</span>
+            <span class="tag tag-green"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"> Python</span>
+            <span class="tag tag-blue"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"> Docker</span>
+            <span class="tag tag-pink"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg"> Kubernetes</span>
+            <span class="tag tag-orange"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg"> CI/CD</span>
           </div>
         </div>
       </div>
@@ -5946,7 +5953,7 @@
                 <div class="avail-dot"></div> Open to Work
               </div>
               <div class="pdivider"></div>
-              <div class="p-row"><span style="display:flex;align-items:center"><img
+              <div class="p-row"><span style="display:flex;align-items:center"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="16"
                     height="16" style="opacity:.7"></span>
                 <div>
@@ -5976,10 +5983,10 @@
               </div>
               <div class="pdivider"></div>
               <div class="soc-row">
-                <a href="https://github.com/perfectionist0001" target="_blank" class="soc-btn" title="GitHub"><img
+                <a href="https://github.com/perfectionist0001" target="_blank" class="soc-btn" title="GitHub"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="18"
                     height="18" style="filter:invert(1) opacity(.8)"></a>
-                <a href="https://www.linkedin.com/in/itznikhil/" target="_blank" class="soc-btn" title="LinkedIn"><img
+                <a href="https://www.linkedin.com/in/itznikhil/" target="_blank" class="soc-btn" title="LinkedIn"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="18"
                     height="18"></a>
                 <a href="https://codolio.com/profile/mr.perfectionist" target="_blank" class="soc-btn" title="Codolio">
@@ -6165,13 +6172,14 @@
           { name: 'Leadership', cat: 'soft',     lvl: 'Strong',        pct: 85, color: '#a855f7', icon: '&#x1F451;', desc: 'Team leadership, project coordination, mentoring juniors, decision-making.', chips: ['Team Lead','Mentoring','Decision Making','Delegation','Motivation'] },
           { name: 'Communication', cat: 'soft',  lvl: 'Excellent',     pct: 90, color: '#22d3ee', icon: '&#x1F4AC;', desc: 'Clear technical communication, presentation skills, documentation, stakeholder management.', chips: ['Presentations','Documentation','Stakeholder Mgmt','Active Listening','Clarity'] },
           { name: 'Problem Solving', cat: 'soft', lvl: 'Expert',       pct: 92, color: '#f472b6', icon: '&#x1F9E0;', desc: 'Analytical thinking, debugging complex issues, algorithm design, creative solutions.', chips: ['Analytical','Debugging','Critical Thinking','Innovation','Root Cause'] },
-          { name: 'Time Management', cat: 'soft', lvl: 'Strong',       pct: 85, color: '#fbbf24', icon: '?', desc: 'Prioritization, deadline management, multitasking, efficient workflow planning.', chips: ['Prioritization','Deadlines','Multitasking','Planning','Efficiency'] },
+          { name: 'Time Management', cat: 'soft', lvl: 'Strong',       pct: 85, color: '#fbbf24', icon: '&#x23F0;', desc: 'Prioritization, deadline management, multitasking, efficient workflow planning.', chips: ['Prioritization','Deadlines','Multitasking','Planning','Efficiency'] },
           { name: 'Teamwork', cat: 'soft',       lvl: 'Excellent',     pct: 88, color: '#34d399', icon: '&#x1F91D;', desc: 'Collaboration, conflict resolution, cross-functional teamwork, agile methodologies.', chips: ['Collaboration','Agile','Conflict Resolution','Cross-functional','Support'] },
           { name: 'Adaptability', cat: 'soft',   lvl: 'Strong',        pct: 87, color: '#fb923c', icon: '&#x1F504;', desc: 'Quick learning, embracing new technologies, flexible approach, handling change.', chips: ['Quick Learning','Flexibility','New Tech','Change Mgmt','Resilience'] }
         ];
 
         const grid = document.getElementById('chain-grid');
         let activeFilter = 'all';
+        const frag = document.createDocumentFragment();
 
         SKILLS.forEach((sk, i) => {
           const item = document.createElement('div');
@@ -6223,7 +6231,7 @@
               </div>
             </div>`;
 
-          grid.appendChild(item);
+          frag.appendChild(item);
 
           item.addEventListener('click', () => {
             const wasExpanded = item.classList.contains('expanded');
@@ -6231,6 +6239,7 @@
             if (!wasExpanded) item.classList.add('expanded');
           });
         });
+        grid.appendChild(frag);
 
         // Category filter
         document.querySelectorAll('.cf-btn').forEach(btn => {
@@ -6449,7 +6458,7 @@
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
-                <div class="pc-ico" style="background:rgba(245,158,11,.12)"><img
+                <div class="pc-ico" style="background:rgba(245,158,11,.12)"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg"
                     width="32" height="32" style="object-fit:contain"></div>
                 <div class="pc-title-wrap">
@@ -6481,7 +6490,7 @@
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
-                <div class="pc-ico" style="background:rgba(0,212,255,.12)"><img
+                <div class="pc-ico" style="background:rgba(0,212,255,.12)"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="28"
                     height="28" style="object-fit:contain"></div>
                 <div class="pc-title-wrap">
@@ -6512,7 +6521,7 @@
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
-                <div class="pc-ico" style="background:rgba(52,211,153,.12)"><img
+                <div class="pc-ico" style="background:rgba(52,211,153,.12)"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="28"
                     height="28" style="object-fit:contain"></div>
                 <div class="pc-title-wrap">
@@ -6561,7 +6570,7 @@
                   class="tag tag-amber">JavaScript</span><span class="tag tag-pink">Responsive</span><span class="tag tag-purple">Animations</span></div>
               <div class="pc-foot"><span class="pc-type"
                   style="background:rgba(168,85,247,.12);color:var(--accent-purple)">&#x1F310; Web App</span><span
-                  class="pc-arrow">You're here ?</span></div>
+                  class="pc-arrow">You're here &#x1F449;</span></div>
             </div>
           </div>
         </div>
@@ -6573,7 +6582,7 @@
             </div>
             <div class="pc-content">
               <div class="pc-hdr">
-                <div class="pc-ico" style="background:rgba(34,211,238,.12)"><img
+                <div class="pc-ico" style="background:rgba(34,211,238,.12)"><img loading="lazy"
                     src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" width="28"
                     height="28" style="object-fit:contain"></div>
                 <div class="pc-title-wrap">
@@ -6626,7 +6635,7 @@
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00d4ff,#0ea5e9)"></div>
             <div class="sc-img"><img src="C++ Certificate.png" decoding="async" loading="lazy" alt="C++"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img
+              <div class="sc-ico"><img loading="lazy"
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="24"
                   height="24"></div>
               <div class="sc-txt">
@@ -6652,7 +6661,7 @@
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ffa500,#f97316)"></div>
             <div class="sc-img"><img src="C Certificate.png" decoding="async" loading="lazy" alt="C"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img
+              <div class="sc-ico"><img loading="lazy"
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="24"
                   height="24"></div>
               <div class="sc-txt">
@@ -6666,7 +6675,7 @@
             <div class="sc-topbar" style="background:linear-gradient(90deg,#00ff88,#00d4ff)"></div>
             <div class="sc-img"><img src="Python Certificate.png" decoding="async" loading="lazy" alt="Python"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img
+              <div class="sc-ico"><img loading="lazy"
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="24"
                   height="24"></div>
               <div class="sc-txt">
@@ -6758,7 +6767,7 @@
             <div class="sc-topbar" style="background:linear-gradient(90deg,#ff9900,#ffa500)"></div>
             <div class="sc-img"><img src="AWS Cloud architect training.png" decoding="async" loading="lazy" alt="AWS Cloud"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="24" height="24"></div>
+              <div class="sc-ico"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="24" height="24"></div>
               <div class="sc-txt">
                 <div class="sc-name">AWS Cloud Architect Training</div>
                 <div class="sc-yr">Issued 2025</div>
@@ -6770,7 +6779,7 @@
             <div class="sc-topbar" style="background:linear-gradient(90deg,#f0db4f,#fbbf24)"></div>
             <div class="sc-img"><img src="JAVA Certificate.jpg" decoding="async" loading="lazy" alt="Java"></div>
             <div class="sc-info">
-              <div class="sc-ico"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="24" height="24"></div>
+              <div class="sc-ico"><img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="24" height="24"></div>
               <div class="sc-txt">
                 <div class="sc-name">Java Programming</div>
                 <div class="sc-yr">Issued 2024</div>
@@ -7096,7 +7105,7 @@
             <div class="c-arr">&#x203A;</div>
           </a>
           <a href="https://github.com/perfectionist0001" target="_blank" class="c-item reveal">
-            <div class="c-icon" style="background:rgba(255,255,255,.06)"><img
+            <div class="c-icon" style="background:rgba(255,255,255,.06)"><img loading="lazy"
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="22"
                 height="22" style="filter:invert(1) opacity(.85)"></div>
             <div>
@@ -7106,7 +7115,7 @@
             <div class="c-arr">&#x203A;</div>
           </a>
           <a href="https://www.linkedin.com/in/itznikhil/" target="_blank" class="c-item reveal">
-            <div class="c-icon" style="background:rgba(10,102,194,.15)"><img
+            <div class="c-icon" style="background:rgba(10,102,194,.15)"><img loading="lazy"
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="22"
                 height="22"></div>
             <div>
@@ -7240,10 +7249,10 @@
         <p class="footer-tagline">Full-Stack Developer & Cloud Engineer passionate about building scalable web applications and solving complex problems.</p>
         <div class="footer-socials">
           <a href="https://github.com/perfectionist0001" target="_blank" class="soc-btn ft-soc" title="GitHub">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="18" height="18" style="filter:invert(1) opacity(.8)">
+            <img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="18" height="18" style="filter:invert(1) opacity(.8)">
           </a>
           <a href="https://www.linkedin.com/in/itznikhil/" target="_blank" class="soc-btn ft-soc" title="LinkedIn">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="18" height="18">
+            <img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="18" height="18">
           </a>
           <a href="https://leetcode.com/u/profacer/" target="_blank" class="soc-btn ft-soc" title="LeetCode">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7309,10 +7318,12 @@
   </footer>
 
 
-  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js" defer></script>
   <script>
     const typedGradients = ['linear-gradient(135deg,#a855f7,#22d3ee)', 'linear-gradient(135deg,#22d3ee,#34d399)', 'linear-gradient(135deg,#f472b6,#fbbf24)', 'linear-gradient(135deg,#fb923c,#a855f7)'];
-    new Typed('#element', { strings: ['Web Developer.', 'Cloud Engineer.', 'Video Editor.', 'Graphic Designer.'], typeSpeed: 75, backSpeed: 38, backDelay: 2000, loop: true, smartBackspace: true, preStringTyped: (i) => { const el = document.getElementById('element'); el.style.background = typedGradients[i % 4]; el.style.backgroundSize = '200% auto'; el.style.webkitBackgroundClip = 'text'; el.style.webkitTextFillColor = 'transparent'; el.style.backgroundClip = 'text'; } });
+    window.addEventListener('load', function() {
+      new Typed('#element', { strings: ['Web Developer.', 'Cloud Engineer.', 'Video Editor.', 'Graphic Designer.'], typeSpeed: 75, backSpeed: 38, backDelay: 2000, loop: true, smartBackspace: true, preStringTyped: (i) => { const el = document.getElementById('element'); el.style.background = typedGradients[i % 4]; el.style.backgroundSize = '200% auto'; el.style.webkitBackgroundClip = 'text'; el.style.webkitTextFillColor = 'transparent'; el.style.backgroundClip = 'text'; } });
+    });
     
     // Nav scroll progress & effects
     const nav = document.querySelector('nav');
@@ -8619,7 +8630,7 @@
         if (!banner) {
           banner = document.createElement('div');
           banner.className = 'offline-reconnected-banner';
-          banner.innerHTML = '? Back online! Reloading...';
+          banner.innerHTML = '&#x2705; Back online! Reloading...';
           screen.appendChild(banner);
         }
         setTimeout(() => banner.classList.add('show'), 50);
