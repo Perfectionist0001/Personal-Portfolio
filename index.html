@@ -1873,45 +1873,76 @@
     @media(max-width:900px) {
       .sc-area {
         flex-direction: column;
-        min-height: auto;
+        min-height: auto !important;
       }
 
       .sc-left {
-        position: relative;
-        top: 0;
-        height: auto;
+        position: relative !important;
+        top: 0 !important;
+        height: auto !important;
         flex: none;
         padding: 40px 24px 24px;
       }
 
+      /* hide the left infobar on mobile — redundant when cards are visible */
+      .sc-left .sc-infobar,
+      .sc-left .sc-cbox { display: none; }
+
       .sc-right {
         position: relative !important;
-        top: 0;
-        height: auto;
+        top: 0 !important;
+        height: auto !important;
         flex: none;
         display: flex !important;
         flex-direction: column !important;
-        gap: 20px;
-        overflow: visible;
-        padding: 0 24px 60px;
+        gap: 24px;
+        overflow: visible !important;
+        padding: 0 16px 60px;
         align-items: center;
+        width: 100%;
       }
 
-      .sc-card {
+      /* Full card reset — undo all absolute positioning */
+      .sc-card,
+      .sc-card.sc-away,
+      .sc-card.sc-top {
         position: relative !important;
-        width: 100%;
-        max-width: 380px;
-        height: 360px;
+        top: auto !important;
+        left: auto !important;
         transform: none !important;
         opacity: 1 !important;
         pointer-events: auto !important;
-        display: block !important;
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 400px !important;
+        height: auto !important;
+        min-height: unset !important;
+        z-index: auto !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(255,255,255,.1) !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,.4) !important;
+        animation: none !important;
       }
 
-      .sc-card.sc-away {
-        display: block !important;
-        opacity: 1 !important;
-        transform: none !important;
+      /* Image block — static flow, not absolute */
+      .sc-card .sc-img {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        height: 200px !important;
+        flex-shrink: 0;
+      }
+
+      /* Info bar — static flow, not absolute */
+      .sc-card .sc-info {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        padding: 14px 16px !important;
+        flex-shrink: 0;
       }
 
       #certifications .sec-head {
@@ -4283,8 +4314,8 @@
 
       /* ── Certifications ── */
       #certifications { padding: 60px 20px; }
-      .sc-card { max-width: 100%; height: auto; min-height: 300px; }
-      .sc-img { height: 180px; }
+      .sc-card { max-width: 100% !important; height: auto !important; min-height: unset !important; }
+      .sc-card .sc-img { height: 180px !important; }
       .sc-name { font-size: 0.88rem; }
       .sc-yr { font-size: 0.72rem; }
       .sc-left { padding: 30px 20px 20px; }
@@ -4330,8 +4361,8 @@
       .pc-content { padding: 16px; }
 
       /* Certs */
-      .sc-card { min-height: 260px; }
-      .sc-img { height: 150px; }
+      .sc-card { min-height: unset !important; height: auto !important; }
+      .sc-card .sc-img { height: 150px !important; }
 
       /* Contact */
       .msg-in { padding: 20px 16px; }
